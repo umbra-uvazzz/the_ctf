@@ -1,0 +1,185 @@
+    /* 🌌 Animated background */
+    body {
+    margin: 0;
+    font-family: monospace;
+    color: #00ff9f;
+    overflow: hidden;
+
+    background: radial-gradient(circle at center, #020617 0%, #000000 100%);
+    }
+
+    /* moving glow layer */
+    body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 42, 0.267) 0%, transparent 60%);
+    animation: pulse 6s infinite alternate;
+    z-index: -1;
+    }
+
+    @keyframes pulse {
+    0% { transform: translate(-25%, -25%) scale(1); }
+    100% { transform: translate(-20%, -20%) scale(1.2); }
+    }
+
+    /* scanline overlay */
+    body::after {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 159, 0.03),
+        rgba(0, 255, 159, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 2;
+    }
+
+    /* terminal container */
+    #terminal {
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+
+    background: rgba(0, 0, 14, 0.6);
+    backdrop-filter: blur(6px);
+
+    box-shadow:
+        0 0 20px rgba(0,255,159,0.2),
+        inset 0 0 20px rgba(0,255,159,0.1);
+
+    border: 1px solid rgba(0,255,159,0.2);
+    }
+
+    /* glowing text */
+    #output {
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+
+    text-shadow:
+        0 0 5px #00ff9f,
+        0 0 10px rgba(0,255,159,0.5);
+    }
+
+    /* input line */
+    #input-line {
+    display: flex;
+    align-items: center;
+    }
+
+    /* input */
+    #input {
+    background: transparent;
+    border: none;
+    color: #00ff9f;
+    outline: none;
+    width: 100%;
+    font-family: monospace;
+
+    text-shadow: 0 0 5px #00ff9f;
+    }
+
+    /* cursor blink effect */
+    #input::after {
+    content: "|";
+    animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+    }
+
+    /* glitch effect */
+    .glitch {
+    color: red;
+    text-shadow:
+        0 0 5px red,
+        0 0 10px rgba(255,0,0,0.6);
+    animation: glitch 0.3s infinite;
+    }
+
+    @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); }
+    80% { transform: translate(1px, -2px); }
+    100% { transform: translate(0); }
+    }
+
+    #matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: black;
+    }
+
+    #terminal {
+    position: relative;
+    z-index: 1;
+    }
+
+    /* 💀 glitch shake */
+body.glitching {
+  animation: screenShake 0.2s infinite;
+}
+
+@keyframes screenShake {
+  0% { transform: translate(0px); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+  100% { transform: translate(0px); }
+}
+
+/* 💀 GLOBAL RED MODE */
+body.glitching {
+  color: #ff0033;
+}
+
+/* background glow becomes red */
+body.glitching::before {
+  background: radial-gradient(circle, rgba(255, 0, 51, 0.25) 0%, transparent 60%);
+}
+
+/* scanlines turn red */
+body.glitching::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 0, 51, 0.05),
+    rgba(255, 0, 51, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* terminal glow becomes red */
+body.glitching #terminal {
+  box-shadow:
+    0 0 30px rgba(255,0,0,0.4),
+    inset 0 0 20px rgba(255,0,0,0.3);
+  border: 1px solid rgba(255,0,0,0.4);
+}
+
+/* text glow becomes red */
+body.glitching #output {
+  text-shadow:
+    0 0 5px #ff0033,
+    0 0 15px rgba(255,0,0,0.6);
+}
+
+/* input glow red */
+body.glitching #input {
+  color: #ff0033;
+  text-shadow: 0 0 5px #ff0033;
+}
